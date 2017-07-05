@@ -4047,6 +4047,8 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 	 * @param Vector3    $pos
 	 * @param float|null $yaw
 	 * @param float|null $pitch
+	 *
+	 * @return bool
 	 */
 	public function teleportImmediate(Vector3 $pos, float $yaw = null, float $pitch = null) : bool{
 		return $this->teleport($pos, $yaw, $pitch);
