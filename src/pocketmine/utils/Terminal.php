@@ -51,8 +51,6 @@ abstract class Terminal{
 
 	private static $formattingCodes = null;
 
-	public static $SCREEN_HEIGHT = PHP_INT_MAX;
-
 	public static function hasFormattingCodes(){
 		if(self::$formattingCodes === null){
 			$opts = getopt("", ["enable-ansi", "disable-ansi"]);
@@ -152,6 +150,17 @@ abstract class Terminal{
 		}
 
 		//TODO: iOS
+	}
+
+	public static function getHeight() : int{
+		switch(Utils::getOS()){
+			case "linux":
+			case "mac":
+			case "bsd":
+				return ((int) `tput lines`) - 1;
+			default:
+				return PHP_INT_MAX;
+		}
 	}
 
 }

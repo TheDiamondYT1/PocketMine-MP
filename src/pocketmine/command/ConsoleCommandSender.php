@@ -37,11 +37,11 @@ class ConsoleCommandSender implements CommandSender{
 
 	private $perm;
 
-	protected $lineHeight = PHP_INT_MAX;
+	/** @var int|null */
+	protected $lineHeight = null;
 
 	public function __construct(){
 		$this->perm = new PermissibleBase($this);
-		$this->setScreenLineHeight(Terminal::$SCREEN_HEIGHT);
 	}
 
 	/**
@@ -144,10 +144,10 @@ class ConsoleCommandSender implements CommandSender{
 	}
 
 	public function getScreenLineHeight() : int{
-		return $this->lineHeight;
+		return $this->lineHeight ?? Terminal::getHeight();
 	}
 
-	public function setScreenLineHeight(int $height){
+	public function setScreenLineHeight(int $height = null){
 		$this->lineHeight = $height;
 	}
 
