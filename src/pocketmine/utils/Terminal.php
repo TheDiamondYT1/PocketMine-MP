@@ -140,7 +140,6 @@ abstract class Terminal{
 			case "mac":
 			case "bsd":
 				self::getEscapeCodes();
-				self::$SCREEN_HEIGHT = (int) `tput lines`;
 				return;
 
 			case "win":
