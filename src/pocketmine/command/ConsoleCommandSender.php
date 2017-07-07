@@ -31,13 +31,17 @@ use pocketmine\permission\PermissionAttachmentInfo;
 use pocketmine\plugin\Plugin;
 use pocketmine\Server;
 use pocketmine\utils\MainLogger;
+use pocketmine\utils\Terminal;
 
 class ConsoleCommandSender implements CommandSender{
 
 	private $perm;
 
+	protected $lineHeight = PHP_INT_MAX;
+
 	public function __construct(){
 		$this->perm = new PermissibleBase($this);
+		$this->setScreenLineHeight(Terminal::$SCREEN_HEIGHT);
 	}
 
 	/**
@@ -137,6 +141,14 @@ class ConsoleCommandSender implements CommandSender{
 	 */
 	public function setOp($value){
 
+	}
+
+	public function getScreenLineHeight() : int{
+		return $this->lineHeight;
+	}
+
+	public function setScreenLineHeight(int $height){
+		$this->lineHeight = $height;
 	}
 
 }

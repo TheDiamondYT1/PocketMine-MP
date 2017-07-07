@@ -44,5 +44,17 @@ interface CommandSender extends Permissible{
 	 */
 	public function getName();
 
+	/**
+	 * Returns the line height of the command-sender's screen. Used for determining sizes for command output pagination
+	 * such as in the /help command.
+	 *
+	 * @return int
+	 */
+	public function getScreenLineHeight() : int;
 
+	/**
+	 * Sets the line height used for command output pagination for this command sender.
+	 * @param int $height
+	 */
+	public function setScreenLineHeight(int $height);
 }

@@ -328,6 +328,8 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 	/** @var PermissibleBase */
 	private $perm = null;
 
+	protected $lineHeight = 7;
+
 	public function getLeaveMessage(){
 		return new TranslationContainer(TextFormat::YELLOW . "%multiplayer.player.left", [
 			$this->getDisplayName()
@@ -462,6 +464,14 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 	 */
 	public function setRemoveFormat($remove = true){
 		$this->removeFormat = (bool) $remove;
+	}
+
+	public function getScreenLineHeight() : int{
+		return $this->lineHeight;
+	}
+
+	public function setScreenLineHeight(int $height){
+		$this->lineHeight = $height;
 	}
 
 	/**

@@ -51,6 +51,8 @@ abstract class Terminal{
 
 	private static $formattingCodes = null;
 
+	public static $SCREEN_HEIGHT = PHP_INT_MAX;
+
 	public static function hasFormattingCodes(){
 		if(self::$formattingCodes === null){
 			$opts = getopt("", ["enable-ansi", "disable-ansi"]);
@@ -140,6 +142,7 @@ abstract class Terminal{
 			case "mac":
 			case "bsd":
 				self::getEscapeCodes();
+				self::$SCREEN_HEIGHT = (int) `tput lines`;
 				return;
 
 			case "win":

@@ -31,8 +31,6 @@ use pocketmine\utils\TextFormat;
 
 class HelpCommand extends VanillaCommand{
 
-	protected $pageSize = 7;
-
 	public function __construct($name){
 		parent::__construct(
 			$name,
@@ -62,11 +60,7 @@ class HelpCommand extends VanillaCommand{
 			$pageNumber = 1;
 		}
 
-		if($sender instanceof ConsoleCommandSender){
-			$pageHeight = PHP_INT_MAX;
-		}else{
-			$pageHeight = $this->pageSize;
-		}
+		$pageHeight = $sender->getScreenLineHeight();
 
 		if($command === ""){
 			/** @var Command[][] $commands */
@@ -106,16 +100,4 @@ class HelpCommand extends VanillaCommand{
 			return true;
 		}
 	}
-
-	/**
-	 * Sets the size of help pages seen by clients.
-	 * @param int $size
-	 */
-	public function setPageSize(int $size){
-		if($size < 1){
-			throw new \InvalidArgumentException("Page size must be greater than zero");
-		}
-		$this->pageSize = $size;
-	}
-
 }
