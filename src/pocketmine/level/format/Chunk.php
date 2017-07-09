@@ -28,7 +28,6 @@ namespace pocketmine\level\format;
 
 use pocketmine\block\Block;
 use pocketmine\entity\Entity;
-use pocketmine\level\format\ChunkException;
 use pocketmine\level\Level;
 use pocketmine\nbt\NBT;
 use pocketmine\nbt\tag\CompoundTag;
@@ -306,11 +305,17 @@ class Chunk{
 	 * @param int $y
 	 * @param int $z 0-15
 	 * @param int $level 0-15
+	 *
+	 * @return bool
 	 */
-	public function setBlockSkyLight(int $x, int $y, int $z, int $level){
+	public function setBlockSkyLight(int $x, int $y, int $z, int $level) : bool{
+
 		if($this->getSubChunk($y >> 4, true)->setBlockSkyLight($x, $y & 0x0f, $z, $level)){
 			$this->hasChanged = true;
+			return true;
 		}
+
+		return false;
 	}
 
 	/**
@@ -344,11 +349,16 @@ class Chunk{
 	 * @param int $y 0-15
 	 * @param int $z 0-15
 	 * @param int $level 0-15
+	 *
+	 * @return bool
 	 */
-	public function setBlockLight(int $x, int $y, int $z, int $level){
+	public function setBlockLight(int $x, int $y, int $z, int $level) : bool{
 		if($this->getSubChunk($y >> 4, true)->setBlockLight($x, $y & 0x0f, $z, $level)){
 			$this->hasChanged = true;
+			return true;
 		}
+
+		return false;
 	}
 
 	/**
@@ -800,7 +810,7 @@ class Chunk{
 		}elseif($generateNew and $this->subChunks[$y] instanceof EmptySubChunk){
 			$this->subChunks[$y] = new SubChunk();
 		}
-		assert($this->subChunks[$y] !== null, "Somehow something broke, no such subchunk at index $y");
+
 		return $this->subChunks[$y];
 	}
 
